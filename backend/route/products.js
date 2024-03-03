@@ -17,7 +17,7 @@ ProductRouter.post('/', async (req, res) => {
     console.log('product id is', id)
         const existingProduct = await product.findOne({id : id})
         if(!existingProduct) {
-            const details = new product({id : id, title : title, price : price, vendor : vendor, imageUrl : imageUrl})
+            const details = new product({id : id, title : title, price : price, vendor : vendor, imageUrl : imageUrl, quantity : 0})
     
             await details.save().then(() => console.log('product added to db successfully'))
     
@@ -26,7 +26,7 @@ ProductRouter.post('/', async (req, res) => {
         }
     
         else {
-            return res.status(400).json({status : 400, message : 'product already exist in the db'})
+            return res.status(400).json({status : 400, message : `product with id ${id} already exist in the db`})
         }
     
     }
@@ -143,6 +143,8 @@ ProductRouter.post('/bulk', upload.single('file'), async(req, res) => {
             vendor : eachRow[2].trim(),
             title : eachRow[3].trim(),
             imageUrl : eachRow[4].trim(),
+            quantity : 0
+
         }) 
         await productInstance.save()
     }

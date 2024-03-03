@@ -32,7 +32,7 @@ function AddressComponent() {
                /* const data = await fetch(url, options)
                 const res = await data.json() */
                 console.log('going inside axios try')
-                const response = await axios.get(url, headers)
+                const response = await axios.get(url, {headers})
                 console.log('axios response', response)
                 const res =  response.data
                 console.log('axios res', res)

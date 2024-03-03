@@ -2,6 +2,7 @@ import Headers from "./header";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import SingleProductComponent from "./singleproduct";
+import { useAuthContext } from "./context";
 //import Cookie from "js-cookie";
 //import {  Navigate } from "react-router-dom";
 
@@ -10,7 +11,8 @@ import SingleProductComponent from "./singleproduct";
 
 function ProductComponent() {
     const [loading, setLoading] = useState(true)
-    const [products, setProducts] = useState([])
+    const {products,setProducts} = useAuthContext()
+   
     useEffect(() => {
       try {
         const axiosData = async() => {

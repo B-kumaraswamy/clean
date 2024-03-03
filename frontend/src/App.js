@@ -11,6 +11,7 @@ import Admin from "./components/admin";
 import { Authprovider } from "./components/context.js";
 import ProtectedRoute from "./components/protectedroute.js";
 import AddressComponent from "./components/address.js";
+import CartComponent from "./components/cart.js";
 // import { useAuthContext } from "./components/context.js";
 // import Cookie from "js-cookie";
 // import { useEffect } from "react";
@@ -41,7 +42,7 @@ function OnApp() {
       <Route  exact  path = '/products' element = {<ProtectedRoute component = {ProductComponent}/>}/>
       <Route  exact  path = '/admin' element = {<ProtectedRoute component = {Admin}/>}/>
       <Route exact path = '/address' element = {<AddressComponent/>}/>
-     
+     <Route exact path = '/cart'  element = {<CartComponent/>}/>
       <Route path = '*' element = {<NotFound/>}/>
       
     </Routes>

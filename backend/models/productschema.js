@@ -25,6 +25,10 @@ const Products = new mongoose.Schema({
         type : String, 
         required : true
 
+    },
+    quantity : {
+        type : Number
+
     }
 })
 
