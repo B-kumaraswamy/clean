@@ -7,6 +7,18 @@ const  ProductRouter = express.Router()
 
 ProductRouter.use(express.json())
 
+ProductRouter.get('/', async(req, res) => {
+    try {
+        const products = await product.find({})
+    console.log("products in the db", products)
+    return res.status(200).json({status : 200, data : products})
+    }
+
+    catch(err) {
+        console.log('error in displaying products', err)
+        return res.status(404).json({status : 404, message : err})
+    }
+})
 
 ProductRouter.post('/', async (req, res) => {
     
@@ -86,18 +98,7 @@ ProductRouter.delete('/', async(req, res) => {
     }
 })
 
-ProductRouter.get('/', async(req, res) => {
-    try {
-        const products = await product.find({})
-    console.log("products in the db", products)
-    return res.status(200).json({status : 200, data : products})
-    }
 
-    catch(err) {
-        console.log('error in displaying products', err)
-        return res.status(404).json({status : 404, message : err})
-    }
-})
 
 ProductRouter.post('/bulk', upload.single('file'), async(req, res) => {
    try {

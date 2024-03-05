@@ -34,7 +34,7 @@ function Headers() {
             <Link to = '/address'>Addresses</Link> &nbsp; &nbsp;
            
             <Link to = '/cart'>Cart</Link> &nbsp; &nbsp;
-
+            
             
             <button onClick={onLogout}>Logout</button>
             

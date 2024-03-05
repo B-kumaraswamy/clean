@@ -1,45 +1,33 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuthContext } from "./context"
-
+import './singleproduct.css'
 function SingleProductComponent(props) {
 
     const {imageUrl, title, price, vendor, id} = props.product
-    const {cart, setCart, products, setProducts} = useAuthContext()
-    const [q, setQ] = useState(2)
+    const {cart, setCart, setProducts} = useAuthContext()
+   
+    const [q, setQ] = useState(0)
 
     const onDecrease = () => {
         if(q > 0) {
             setQ(q => q-1)
-          setProducts((prevProduct) => (
-            prevProduct.map((eachProduct) => eachProduct.id === id ?
-            {
-                ...eachProduct,
-                quantity : eachProduct.quantity -1
-            } : eachProduct
-            
-            )
-          ))
-
-          console.log('today products after decreasing', products)
+         
         }
         
     }
 
     const onIncrease = () => {
-        setQ(q => q+1)
-          setProducts((prevProduct) => (
-            prevProduct.map((eachProduct) => eachProduct.id === id ?
-            {
-                ...eachProduct,
-                quantity : eachProduct.quantity +1
-            } : eachProduct
-            
-            )
-          ))
+        setQ(prevQ => prevQ + 1)
+    }    
+    
 
-          console.log('today products after increasing', products)
-    }
+    useEffect(() => {
+       setProducts((prevProducts) => prevProducts.map(eachProduct => (eachProduct.id === id ? {
+        ...eachProduct,
+        quantity : q 
+       } : eachProduct)))
+    }, [q])
 
     /*
     cart = []
@@ -47,22 +35,28 @@ function SingleProductComponent(props) {
     cart = [{id : id, quantity : quantity}, {id : 1, quantity : 2}]
     ...cart
     */
+    useEffect(() => {
+        if (q>0) {
+           const existingProduct = cart.find(eachProduct => eachProduct.id === id)
+           if(existingProduct) {
+           setCart(prevCart => (
+            prevCart.map(eachProduct => (eachProduct.id === id ? {...eachProduct, quantity : q} : eachProduct))
+           ))
+           }
 
-    const onAddtoCart = () => {
-        
-        setCart((prevCart) => (
-            [
+           else {
+            setCart(prevCart => ([
                 ...prevCart,
-                {
-                    id : id,
-                   quantity : q
-                }
-            ]
-        ))
+                {id : id, quantity : q}
+            ]))
+           }
+        }
+    }, [q])
 
-        console.log('march 03 ', cart)
-    }
-
+    useEffect(() => {
+        console.log('march 04 cart items are', cart)
+    }, [cart])
+   
     /*
     products = [
         {
@@ -91,7 +85,7 @@ function SingleProductComponent(props) {
             <label>{q}</label>  &nbsp;
             <button onClick={onIncrease}>+</button>  &nbsp;  &nbsp;  &nbsp;
 
-            <button onClick={onAddtoCart}>Add to cart</button>
+            <p>Click cart button after adding desired quantity</p>
           
        
         </li>

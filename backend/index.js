@@ -5,6 +5,7 @@ import LoginRouter from './route/login.js';
 import SignupRouter from './route/signup.js';
 import ProductRouter from './route/products.js';
 import AddressRoute from './route/address.js';
+import CartRouter from './route/cart.js';
 
 const Login = express()
 
@@ -19,6 +20,8 @@ Login.use('/signup', SignupRouter)
 Login.use('/products', ProductRouter)
 
 Login.use('/address', AddressRoute)
+
+Login.use('/cart', CartRouter)
 
 const port = 8080;
 
